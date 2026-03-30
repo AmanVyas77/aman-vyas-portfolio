@@ -4,366 +4,557 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Financial Portfolio | Aman Vyas</title>
-    <!-- <link rel="icon" href="images/favicon.png" type="image/png"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- ALL CSS GOES HERE -->
     <style>
         :root {
-            --primary: #1a3e6e;
-            --secondary: #0f8b8d;
-            --light: #f5f5f5;
-            --dark: #333;
-            --accent: #ffc107;
-            --section-bg-alt: #f9f9f9;
+            --bg-color: #0b1121;
+            --bg-alt: #12182b;
+            --card-bg: rgba(30, 41, 59, 0.6);
+            --card-border: rgba(255, 255, 255, 0.05);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #0ea5e9;
+            --accent-glow: rgba(14, 165, 233, 0.4);
+            --accent-gradient: linear-gradient(135deg, #0ea5e9, #3b82f6);
+            --transition: all 0.3s ease;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
         
         body {
-            background-color: var(--light);
-            color: var(--dark);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
             line-height: 1.6;
+            overflow-x: hidden;
         }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+        ::selection {
+            background: var(--accent-primary);
             color: white;
-            padding: 60px 20px;
-            text-align: center;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
+        /* Glass Navbar */
         nav {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
+            background: rgba(11, 17, 33, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--card-border);
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
         
         nav ul {
             display: flex;
             list-style: none;
             justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         nav ul li a {
             display: block;
-            padding: 15px 20px;
+            padding: 20px 25px;
             text-decoration: none;
-            color: var(--dark);
+            color: var(--text-secondary);
             font-weight: 500;
-            transition: color 0.3s, background-color 0.3s;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            position: relative;
         }
         
         nav ul li a:hover {
-            color: var(--secondary);
-            background-color: #e9e9e9;
+            color: var(--text-primary);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        nav ul li a:hover::after {
+            width: 80%;
+        }
+
+        /* Hero Header */
+        header {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 20px 60px;
+            position: relative;
+            background: radial-gradient(circle at 50% 10%, rgba(14, 165, 233, 0.15), transparent 60%);
         }
         
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Sections */
         section {
-            padding: 60px 0;
+            padding: 100px 0;
         }
 
         .section-bg-alt {
-            background-color: var(--section-bg-alt);
+            background-color: var(--bg-alt);
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
         }
         
         .section-title {
             text-align: center;
-            margin-bottom: 40px;
-            color: var(--primary);
+            margin-bottom: 60px;
+            color: var(--text-primary);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
             position: relative;
-            font-size: 2.2rem;
         }
         
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background-color: var(--accent);
-            margin: 15px auto 0;
+        .section-title span {
+            color: var(--accent-primary);
         }
         
+        /* About Profile */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
         .profile-pic {
-            width: 200px;
-            height: 200px;
+            width: 250px;
+            height: 250px;
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            border: 3px solid transparent;
+            background: var(--accent-gradient) border-box;
+            padding: 4px;
+            box-shadow: 0 0 30px var(--accent-glow);
+            margin: 0 auto;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            transition: transform 0.5s ease;
+        }
+
+        .profile-pic:hover {
+            transform: scale(1.05) rotate(2deg);
         }
         
-        .about-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
         .about-content p {
-            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
         }
         
         .skills {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
+            gap: 12px;
+            margin-top: 30px;
         }
         
         .skill-tag {
-            background-color: var(--primary);
-            color: white;
-            padding: 8px 18px;
-            border-radius: 20px;
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--accent-primary);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            padding: 8px 16px;
+            border-radius: 30px;
             font-size: 0.9rem;
-            transition: background-color 0.3s;
+            font-weight: 500;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
         }
+
         .skill-tag:hover {
-            background-color: var(--secondary);
+            background: var(--accent-primary);
+            color: white;
+            box-shadow: 0 0 15px var(--accent-glow);
+            transform: translateY(-2px);
         }
         
+        /* Projects Grid */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 30px;
         }
         
         .project-card {
-            background-color: white;
-            border-radius: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
-            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
             display: flex;
             flex-direction: column;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+            z-index: 1;
         }
         
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            transform: translateY(-10px);
+            border-color: rgba(14, 165, 233, 0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px var(--accent-glow);
         }
         
         .project-img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
+            border-bottom: 1px solid var(--card-border);
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-img {
+            filter: brightness(1.1);
         }
         
         .project-content {
-            padding: 20px;
+            padding: 25px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 2;
         }
         
         .project-title {
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 1.4rem;
-        }
-        .project-content p {
+            color: var(--text-primary);
             margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .project-content p {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
             flex-grow: 1;
         }
         
         .project-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 5px;
+            gap: 8px;
             margin-top: auto;
         }
         
         .project-tag {
-            background-color: var(--light);
-            color: var(--dark);
-            padding: 3px 10px;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            padding: 4px 12px;
+            border-radius: 20px;
             font-size: 0.8rem;
         }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+
+        .github-link:hover {
+            color: #fff;
+        }
+        .github-link svg {
+            width: 16px; height: 16px;
+        }
         
+        /* Resume Section */
+        .resume-section-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resume-category-title {
+            color: var(--text-primary); 
+            margin: 0 0 25px;
+            font-size: 1.6rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resume-category-title::before {
+            content: '';
+            display: block;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+        }
+        
+        .resume-item {
+            margin-bottom: 30px;
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .resume-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: var(--bg-color);
+            border: 2px solid var(--accent-primary);
+            border-radius: 50%;
+        }
+
+        .resume-item h4 {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+        }
+        .resume-item p {
+            color: var(--accent-primary);
+            margin-bottom: 10px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        .resume-item ul {
+            list-style-type: none;
+        }
+        .resume-item li {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            position: relative;
+            padding-left: 15px;
+        }
+        .resume-item li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+        }
+
+        .download-resume-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--accent-gradient);
+            color: white; 
+            padding: 14px 30px; 
+            text-decoration: none; 
+            border-radius: 30px; 
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .download-resume-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.5);
+        }
+        
+        /* Contact Form */
         .contact-form {
             max-width: 600px;
             margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             font-weight: 500;
+            color: var(--text-primary);
+            font-size: 0.95rem;
         }
         
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 14px 18px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
             font-size: 1rem;
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
         }
         
         .form-group textarea {
-            min-height: 150px;
+            min-height: 160px;
+            resize: vertical;
         }
         
-        button[type="submit"] {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: background-color 0.3s;
-            display: block;
-            margin: 0 auto;
-        }
-        
-        button[type="submit"]:hover {
-            background-color: var(--primary);
-        }
-
-        .resume-section-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
-        }
-        .resume-category-title {
-            color: var(--primary); 
-            margin: 40px 0 20px;
-            font-size: 1.5rem;
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 5px;
-        }
-        .resume-item {
-            margin-bottom: 20px;
-        }
-        .resume-item h4 {
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-            color: var(--dark);
-        }
-        .resume-item p {
-            font-style: italic; 
-            color: #666;
-            margin-bottom: 5px;
-        }
-        .resume-item ul {
-            list-style-type: disc;
-            padding-left: 20px;
-        }
-        .resume-item li {
-            margin-bottom: 8px;
-        }
-        .download-resume-btn {
-            display: inline-block; 
-            background-color: var(--primary); 
-            color: white; 
-            padding: 12px 25px; 
-            text-decoration: none; 
-            border-radius: 4px; 
-            font-weight: 500;
-            transition: background-color 0.3s;
-        }
-        .download-resume-btn:hover {
-            background-color: var(--secondary);
-        }
-        
+        /* Footer */
         footer {
-            background-color: var(--dark);
-            color: white;
+            background-color: #050810;
+            color: var(--text-secondary);
             text-align: center;
-            padding: 30px 20px;
+            padding: 40px 20px;
+            border-top: 1px solid var(--card-border);
         }
         
         .social-links {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
-            gap: 15px;
+            margin-top: 25px;
+            gap: 20px;
         }
         
         .social-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255,255,255,0.1);
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--card-border);
             border-radius: 50%;
-            color: white;
+            color: var(--text-primary);
             text-decoration: none;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: var(--transition);
         }
         
         .social-link:hover {
-            background-color: var(--accent);
-            transform: scale(1.1);
+            background: var(--accent-gradient);
+            border-color: transparent;
+            transform: translateY(-5px);
+            color: white;
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
         }
         .social-link svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
         }
         
-        @media (max-width: 768px) {
-            .projects-grid {
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .about-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-            nav ul li a {
-                padding: 12px 15px;
                 text-align: center;
-                width: 100%;
             }
-            .section-title {
-                font-size: 1.8rem;
+            .skills {
+                justify-content: center;
             }
             .profile-pic {
-                width: 150px;
-                height: 150px;
+                margin: 0 auto 30px;
             }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 3rem; }
+            nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                margin-bottom: 10px;
+            }
+            nav { position: relative; }
+            nav ul li a { padding: 10px; font-size: 0.8rem; }
+            .section-title { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Aman Vyas</h1>
-            <p>Financial Analyst & Aspiring Fintech Developer</p>
-        </div>
-    </header>
-    
     <nav>
         <ul>
             <li><a href="#about">About</a></li>
@@ -372,26 +563,33 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
+
+    <header>
+        <div class="container">
+            <h1 class="fade-in">Aman Vyas</h1>
+            <p class="fade-in delay-1">FinTech ML/AI Enthusiast</p>
+        </div>
+    </header>
     
     <section id="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <!-- Make sure profile image is in an 'images' folder relative to this HTML file -->
-            <img src="images/profile-aman-vyas.jpg" alt="Aman Vyas" class="profile-pic">
-            <div class="about-content">
-                <p>I am a student at the University of Florida passionate about corporate finance, financial modeling, data analysis, and the evolving world of Fintech.</p>
-                <p>I'm eager to expand my technical skillset and connect with peers and professionals who share similar interests.</p>
-                
-                <div class="skills">
-                    <span class="skill-tag">Financial Modeling</span>
-                    <span class="skill-tag">Business Finance</span>
-                    <span class="skill-tag">Managerial Accounting</span>
-                    <span class="skill-tag">Data Analysis</span>
-                    <span class="skill-tag">Excel & VBA</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Financial Accounting</span>
-                    <span class="skill-tag">Power BI</span>
-                    <span class="skill-tag">Fintech</span>
+        <div class="container fade-in delay-2">
+            <h2 class="section-title">About <span>Me</span></h2>
+            <div class="about-grid">
+                <img src="images/Profile-Aman-Vyas.jpg" alt="Aman Vyas" class="profile-pic">
+                <div class="about-content">
+                    <p>Incoming MS FinTech student who is interested in learning how to utilize AI in Finance while also developing Machine Learning algorithms for financial forecasting.</p>
+                    
+                    <div class="skills">
+                        <span class="skill-tag">Financial Modeling</span>
+                        <span class="skill-tag">Business Finance</span>
+                        <span class="skill-tag">Managerial Accounting</span>
+                        <span class="skill-tag">Data Analysis</span>
+                        <span class="skill-tag">Excel & VBA</span>
+                        <span class="skill-tag">Python & Machine Learning</span>
+                        <span class="skill-tag">Financial Accounting</span>
+                        <span class="skill-tag">Power BI</span>
+                        <span class="skill-tag">Fintech</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -399,12 +597,82 @@
     
     <section id="projects" class="section-bg-alt">
         <div class="container">
-            <h2 class="section-title">Financial Projects</h2>
+            <h2 class="section-title">Featured <span>Projects</span></h2>
             <div class="projects-grid">
-                <div class="project-card">
-                    <img src="https://picsum.photos/seed/creditrisk/400/200" alt="Credit Risk Assessment Tool" class="project-img">
+                
+                <!-- New Project 1 -->
+                <div class="project-card fade-in delay-1">
+                    <img src="images/supervised_ml_finance.png" alt="Supervised ML in Finance" class="project-img">
                     <div class="project-content">
-                        <h3 class="project-title">Credit Risk Assessment Tool</h3>
+                        <h3 class="project-title">Supervised ML in Finance</h3>
+                        <p>Explored various supervised machine learning techniques (Ridge Regression, Random Forests, Neural Networks) to analyze and predict financial returns.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Machine Learning</span>
+                            <span class="project-tag">Python</span>
+                            <span class="project-tag">Return Prediction</span>
+                        </div>
+                        <a href="https://github.com/AmanVyas77/Supervised_ML_Finance" target="_blank" class="github-link">
+                            View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- New Project 2 -->
+                <div class="project-card fade-in delay-2">
+                    <img src="images/aapl_forecasting.png" alt="AAPL Revenue Forecasting" class="project-img">
+                    <div class="project-content">
+                        <h3 class="project-title">AAPL Revenue Forecasting</h3>
+                        <p>Built a machine learning pipeline to forecast Apple Inc.'s income statement figures using XGBoost, including time-series feature engineering and multi-step forecasting.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">XGBoost</span>
+                            <span class="project-tag">Time-Series</span>
+                            <span class="project-tag">Forecasting</span>
+                        </div>
+                        <a href="https://github.com/AmanVyas77/Final_Project_AAPL_XGBoost" target="_blank" class="github-link">
+                            View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- New Project 3 -->
+                <div class="project-card fade-in delay-3">
+                    <img src="images/vegas_casino_data.png" alt="Las Vegas Casino Alternative Data" class="project-img">
+                    <div class="project-content">
+                        <h3 class="project-title">Las Vegas Casino Analysis</h3>
+                        <p>Analyzed loyalty app sentiment and foot traffic proxy data to track trends across major Las Vegas casino operators using geospatial and volume signals.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Alternative Data</span>
+                            <span class="project-tag">Sentiment Analysis</span>
+                            <span class="project-tag">Geospatial</span>
+                        </div>
+                        <a href="https://github.com/AmanVyas77/Las-Vegas-Casino" target="_blank" class="github-link">
+                            View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- New Project 4 -->
+                <div class="project-card fade-in delay-1">
+                    <img src="images/procore_headcount.png" alt="Procore Alternative Data" class="project-img">
+                    <div class="project-content">
+                        <h3 class="project-title">Procore Headcount Tracking</h3>
+                        <p>Scraped LinkedIn profiles and job postings to track Procore's hiring velocity and headcount trends by department to gauge business momentum.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Web Scraping</span>
+                            <span class="project-tag">Alternative Data</span>
+                            <span class="project-tag">Python</span>
+                        </div>
+                        <a href="https://github.com/AmanVyas77/Procore" target="_blank" class="github-link">
+                            View Repository <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Existing Project 1 -->
+                <div class="project-card fade-in delay-2">
+                    <img src="images/credit_risk.png" alt="Credit Risk Assessment Tool" class="project-img">
+                    <div class="project-content">
+                        <h3 class="project-title">Credit Risk Assessment</h3>
                         <p>Developed an automated credit risk assessment tool utilizing machine learning algorithms, aiming to enhance accuracy in identifying high-risk loan applications.</p>
                         <div class="project-tags">
                             <span class="project-tag">Credit Risk</span>
@@ -414,68 +682,153 @@
                     </div>
                 </div>
                 
-                <div class="project-card">
-                    <img src="https://picsum.photos/seed/retirement/400/200" alt="Financial Retirement Model" class="project-img">
+                <!-- Existing Project 2 -->
+                <div class="project-card fade-in delay-3">
+                    <img src="images/retirement_model.png" alt="Financial Retirement Model" class="project-img">
                     <div class="project-content">
                         <h3 class="project-title">Financial Retirement Model</h3>
-                        <p>Created a customizable retirement planning model in Excel, factoring in inflation, varying investment rates, cost of living, and promotion rates to optimize savings and distribution strategies.</p>
+                        <p>Created a customizable retirement planning model developed in Python and Excel, factoring in inflation, varying investment rates, cost of living, and promotion rates to optimize strategies.</p>
                         <div class="project-tags">
                             <span class="project-tag">Retirement Planning</span>
+                            <span class="project-tag">Python</span>
                             <span class="project-tag">Excel</span>
                             <span class="project-tag">Financial Projection</span>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
     
     <section id="resume">
         <div class="container">
-            <h2 class="section-title">Resume</h2>
-            <div style="text-align: center; margin-bottom: 30px;">
-                <!-- Make sure resume PDF is in an 'assets' folder relative to this HTML file -->
-                <a href="assets/AMAN_VYAS_resume.pdf" class="download-resume-btn" download>Download Resume (PDF)</a>
-            </div>
+            <h2 class="section-title">My <span>Experience</span></h2>
             
-            <div class="resume-section-content">
-                <h3 class="resume-category-title">Education</h3>
+            <div class="resume-section-content fade-in delay-1">
+                
+                <h3 class="resume-category-title">Work Experience</h3>
+                
                 <div class="resume-item">
-                    <h4>Bachelor of Arts, Business Administration</h4>
-                    <p>University of Florida, Expected May 2027</p>
+                    <h4>Incoming Finance Intern Program</h4>
+                    <p>Capital One • McLean, VA • June 2026 - August 2026</p>
+                    <ul>
+                        <li>Selected for the prestigious Finance Intern Program (FIP).</li>
+                    </ul>
                 </div>
                 
-                <h3 class="resume-category-title">Certifications</h3>
-                <ul class="resume-item" style="list-style-type: none; padding: 0;">
-                    <li style="margin-bottom: 10px;">Finance Analytics (Citi Bank) - Completed</li>
-                    <li style="margin-bottom: 10px;">Bloomberg Market Concepts (BMC) - In Progress / Completed</li>
-                    <li style="margin-bottom: 10px;">Corporate Finance Fundamentals (CFI) - In Progress / Completed</li>
-                </ul>
+                <div class="resume-item">
+                    <h4>Business Finance Tutor & Data Analytics Intern</h4>
+                    <p>Study Edge • Gainesville, FL • May 2025 - Present</p>
+                    <ul>
+                        <li>Teach complex financial accounting and managerial accounting concepts to students, recording video solutions for practice problems.</li>
+                        <li>Allocated $50,000 to determine successful projects for the marketing team using FP&A budgeting and forecasting.</li>
+                        <li>Engineered a Python-based Instagram API tool to extract consumer data, driving a social media expansion that secured 200+ new customers.</li>
+                    </ul>
+                </div>
+                
+                <div class="resume-item">
+                    <h4>Finance Intern</h4>
+                    <p>World Financial Group • Sunrise, FL • May 2024 - August 2024</p>
+                    <ul>
+                        <li>Completed financial analysis tasks to educate clients on budgeting and diverse investment strategies.</li>
+                        <li>Identified strategies to diversify portfolios and increase profitability by 10-12%.</li>
+                        <li>Gained expertise in individual and corporate insurance and annuity products.</li>
+                    </ul>
+                </div>
+
+
+
+                <h3 class="resume-category-title" style="margin-top: 50px;">Leadership & Research</h3>
+
+                <div class="resume-item">
+                    <h4>Head of Alternative Data (Founder)</h4>
+                    <p>Caimanes Student-Managed Equity Hedge Fund • March 2026 - Present</p>
+                    <ul>
+                        <li>Automate data pipelines in Python to track real-time KPIs for covered equities, reducing reliance on lagging reports.</li>
+                        <li>Web scraped 75,000+ reviews to mimic foot traffic and analyze consumer sentiment using NLP models.</li>
+                    </ul>
+                </div>
+
+                <div class="resume-item">
+                    <h4>President / Vice President of FinTech Track</h4>
+                    <p>UF Finance Professional Development Program (FPD) • May 2025 - Present</p>
+                    <ul>
+                        <li>Teach fundamentals of Machine Learning, Python, and other technical topics within the Finance industry.</li>
+                        <li>Architected an 8-10 week fintech curriculum teaching 30+ analysts Python to automate financial tasks and analyze data.</li>
+                        <li>Network with Fortune 500 companies (e.g., Capital One) to provide industry-based fintech knowledge.</li>
+                    </ul>
+                </div>
+
+                <div class="resume-item">
+                    <h4>Undergraduate Research Assistant (FinTech Center)</h4>
+                    <p>University of Florida - Warrington College of Business • June 2025 - Present</p>
+                    <ul>
+                        <li>Researching Large Language Models (LLMs) in Finance.</li>
+                        <li>Gathering data via Python using Financial Modeling Prep to supply financial training data for LLMs.</li>
+                    </ul>
+                </div>
+
+                <div class="resume-item">
+                    <h4>Project Team Manager / Vice President</h4>
+                    <p>GatorTech UF • April 2024 - January 2026</p>
+                    <ul>
+                        <li>Created the project team for students to use their passion for info systems to work on projects and build their resumes.</li>
+                        <li>Pioneered a professional development program to enhance skill acquisition.</li>
+                    </ul>
+                </div>
+
+                <h3 class="resume-category-title" style="margin-top: 50px;">Education & Certifications</h3>
+                <div class="resume-item">
+                    <h4>Bachelor of Arts, Business Administration (General Studies)</h4>
+                    <p>University of Florida • Expected May 2027</p>
+                    <ul>
+                        <li><strong>Relevant Coursework:</strong> ML and AI in Finance, Data Analytics in Fin & Real Estate, Business Finance, Intro to Managerial/Financial Accounting, Foundations of Business Analytics & AI.</li>
+                    </ul>
+                </div>
+                
+                <div class="resume-item">
+                    <h4>Certifications & Activities</h4>
+                    <ul>
+                        <li><strong>Certifications:</strong> Machine Learning (CFI), Python (Harvard), Corporate Finance Fundamentals (CFI), FP&A (Coursera), Citi Finance Job Simulation.</li>
+                        <li><strong>Activities:</strong> Microsoft Excel Collegiate Challenge (Financial Analyst), Goldman Sachs Virtual Insight Series (Member), Project Destined Virtual Intern.</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 50px;">
+                    <a href="assets/Aman_Vyas_Resume.pdf" class="download-resume-btn" download>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download Resume (PDF)
+                    </a>
+                </div>
+
             </div>
         </div>
     </section>
     
     <section id="contact" class="section-bg-alt">
         <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <form class="contact-form" action="https://formspree.io/f/your_form_id" method="POST">
+            <h2 class="section-title">Get In <span>Touch</span></h2>
+            <form class="contact-form fade-in delay-1" action="https://formspree.io/f/mqaqlvzo" method="POST">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" placeholder="john@example.com" required>
                 </div>
                 <div class="form-group">
                     <label for="subject">Subject</label>
-                    <input type="text" id="subject" name="subject" required>
+                    <input type="text" id="subject" name="subject" placeholder="How can we help?" required>
                 </div>
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea id="message" name="message" required></textarea>
+                    <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
                 </div>
-                <button type="submit">Send Message</button>
+                <div style="text-align: center;">
+                    <button type="submit" class="download-resume-btn" style="width: 100%; border-radius: 8px;">Send Message</button>
+                </div>
             </form>
         </div>
     </section>
@@ -484,10 +837,10 @@
         <div class="container">
             <p>© 2024 Aman Vyas. All rights reserved.</p>
             <div class="social-links">
-                <a href="https://linkedin.com/in/aman-vyas-uf" class="social-link" target="_blank" aria-label="LinkedIn">
+                <a href="https://linkedin.com/in/aman-vyas-999139297" class="social-link" target="_blank" aria-label="LinkedIn">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                 </a>
-                <a href="https://github.com/amanvyas03" class="social-link" target="_blank" aria-label="GitHub">
+                <a href="https://github.com/AmanVyas77" class="social-link" target="_blank" aria-label="GitHub">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
                 </a>
                 <a href="mailto:amanvyas@ufl.edu" class="social-link" aria-label="Email">
@@ -497,7 +850,6 @@
         </div>
     </footer>
     
-    <!-- ALL JAVASCRIPT GOES HERE -->
     <script>
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -512,14 +864,43 @@
             });
         });
         
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .resume-section-content, .contact-form').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+        
         const form = document.querySelector('.contact-form');
         if (form.getAttribute('action') && form.getAttribute('action').includes('formspree.io')) {
-            // If using Formspree, their service handles the submission.
+            // Formspree handles the submission
         } else {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
-                alert('Thanks for your message! This is a demo form. In a real website, this would send an email or save to a database.');
-                form.reset();
+                const btn = this.querySelector('button');
+                const originalText = btn.innerText;
+                btn.innerText = 'Sending...';
+                
+                setTimeout(() => {
+                    alert('Thanks for your message!');
+                    form.reset();
+                    btn.innerText = originalText;
+                }, 1000);
             });
         }
     </script>
